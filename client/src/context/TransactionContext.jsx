@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-
 import { contractABI, contractAddress } from "../utils/constants";
 
 export const TransactionContext = React.createContext();
@@ -91,8 +90,10 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
+        console.log(transactionsContract);
         const currentTransactionCount =
           await transactionsContract.getTransactionCount();
+        console.log(currentTransactionCount);
 
         window.localStorage.setItem(
           "transactionCount",
@@ -100,7 +101,7 @@ export const TransactionsProvider = ({ children }) => {
         );
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       throw new Error("No ethereum object");
     }
